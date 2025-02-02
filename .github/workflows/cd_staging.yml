@@ -6,9 +6,17 @@ on:
 
 jobs:
   redeploy_everything:
+    runs-on: ubuntu-latest
     name: Deploying everything to the staging cluster
-  
     steps:
-      - name: SSH Into server
-      - run: echo "hi"
+      name: SSH Into server
+      run: |
+        echo ${{ secrets.SSH_PRIVATE_KEY }} &> ~/ssh_key
+        ssh -i ~/ssh_key root@64.227.147.124
+        cd week-25-ci-next-app/ && git pull
+        pnpm install
+        pnpm run build
+        pm2 restart fe-sever
+        pm2 restart http-sever
+        pm2 restart ws-sever
 
