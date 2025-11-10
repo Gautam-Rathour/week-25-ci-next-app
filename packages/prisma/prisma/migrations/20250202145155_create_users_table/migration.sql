@@ -7,5 +7,5 @@ CREATE TABLE "User" (
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
+-- CreateIndex.
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
