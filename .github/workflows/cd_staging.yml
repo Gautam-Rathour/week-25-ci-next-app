@@ -11,16 +11,15 @@ on:
       name: Deploying everything to the staging cluster 
 
     steps:
-        name: SSH Into server
-        run: |
-            echo ${{ secrets.SSH_PRIVATE_KEY }} &> ~/ssh_key
-            ssh -i ~/ssh_key root@139.59.63.142 
-            cd week-25-ci-next-app/ && git pull
-            pnpm install
-            pnpm run build
-            pm2 restart fe-server
-            pm2 restart http-server
-            pm2 restart ws-server
+      - run: |
+          echo ${{ secrets.SSH_PRIVATE_KEY }} &> ~/ssh_key
+          ssh -i ~/ssh_key root@139.59.63.142 
+          cd week-25-ci-next-app/ && git pull
+          pnpm install
+          pnpm run build
+          pm2 restart fe-server
+          pm2 restart http-server
+          pm2 restart ws-server
 
 
 
