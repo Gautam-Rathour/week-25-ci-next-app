@@ -2,17 +2,17 @@
 name: Deploy to staging
 on: 
   push:
-    branches:
-      - "main"
+    branches: [ main ]
 
 
   jobs:
-  redeploy_everything:
-    name: Deploying everything to the staging cluster 
+    uses: ubuntu-latest
+    redeploy_everything:
+      name: Deploying everything to the staging cluster 
 
     steps:
-      - name: SSH Into server
-      - run: |
+        name: SSH Into server
+        run: |
             echo ${{ secrets.SSH_PRIVATE_KEY }} &> ~/ssh_key
             ssh -i ~/ssh_key root@139.59.63.142 
             cd week-25-ci-next-app/ && git pull
