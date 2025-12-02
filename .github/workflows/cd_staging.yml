@@ -6,14 +6,14 @@ on:
 
 
   jobs:
-    uses: ubuntu-latest
     redeploy_everything:
-      name: Deploying everything to the staging cluster 
-
+    runs-on: ubuntu-latest
+    name: Deploying everything to the staging cluster 
     steps:
       - run: |
-          echo ${{ secrets.SSH_PRIVATE_KEY }} &> ~/ssh_key
-          ssh -i ~/ssh_key root@139.59.63.142 
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/ssh_key
+          echo "${{ secrets.KNOWN_HOSTS }}" &> ~/.ssh/known.hosts
+          ssh -i ~/ssh_key root@139.59.63.142
           cd week-25-ci-next-app/ && git pull
           pnpm install
           pnpm run build
